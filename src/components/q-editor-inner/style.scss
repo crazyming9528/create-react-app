@@ -1,19 +1,22 @@
-
-.ngr-editor{
-
-  .ngr-topic-tag-blot{
-    color: rgba(88, 141, 202, 1)!important;
+.ngr-editor {
+  .ngr-topic-tag-blot {
+    color: rgba(88, 141, 202, 1) !important;
   }
-  [data-type="topic"] {
-    color: rgba(88, 141, 202, 1)!important;
+  [data-type='topic'] {
+    color: rgba(88, 141, 202, 1) !important;
     //margin: 0 10px;
   }
-  .ql-editor{
+  .ngr-topic2 {
+    span {
+      pointer-events: none; /* 禁止点击事件 */
+      user-select: none; /* 禁止选择 */
+    }
+  }
+  .ql-editor {
     padding: 5px;
     box-sizing: border-box;
     border: none;
     width: 100%;
     height: 100%;
   }
-
 }

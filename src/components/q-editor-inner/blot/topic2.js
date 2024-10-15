@@ -1,10 +1,13 @@
 import Quill from 'quill';
 
 import { BlotName } from './type';
+
 const Inline = Quill.import('blots/inline');
 export default class TopicBlot2 extends Inline {
   static blotName = BlotName.ngr_topic2;
+
   static tagName = 'span';
+
   static className = 'ngr-topic2';
 
   static create(value) {
@@ -19,27 +22,16 @@ export default class TopicBlot2 extends Inline {
   }
 
   // @ts-ignore
-  static init({ node, value }) {
-    const { topicName } = value;
-    // node?.setAttribute('contenteditable', 'false');
-    node?.setAttribute('data-type', 'topic');
-    node?.setAttribute('data-topicname', topicName);
-    node.setAttribute('style', 'color: rgb(71, 163, 230)'); // 为了兼容营地的样式格式, ngr这边通过class加权覆盖
-
-    node.innerHTML = `<span> #${topicName} </span>`; // 套个span也是为了和营地结构一致
-    // node.textContent = `<span> #${topicName} </span>`; // 套个span也是为了和营地结构一致
-  }
-
-  static sanitize(link) {
-    if (!link) {
-      return '';
-    }
-
-    if (!/^https?:\/\//i.test(link)) {
-      return `https://${link}`;
-    }
-
-    return link;
+  static init(data) {
+    const {
+      node,
+      value: { topicName },
+    } = data;
+    node?.setAttribute('contenteditable', 'false');
+    node.setAttribute('data-type', 'topic');
+    node.setAttribute('data-topicname', topicName);
+    node.setAttribute('style', 'color: rgb(71, 163, 230)');
+    node.innerHTML = `<span>#${topicName}</span>`;
   }
 
   static formats(node) {

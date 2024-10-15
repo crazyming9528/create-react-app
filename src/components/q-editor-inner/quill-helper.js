@@ -2,8 +2,9 @@ import Quill from 'quill';
 
 import { BlotName } from './blot';
 
-export class QuillHelper {
+export default class QuillHelper {
   quill;
+
   constructor(quil) {
     this.quill = quil;
   }
@@ -29,6 +30,7 @@ export class QuillHelper {
     // 文档是空的，getLength 方法也会返回 1
     return contentLength - 1;
   }
+
   /**
    * 获取上一次光标丢失位置
    * @returns
@@ -103,6 +105,20 @@ export class QuillHelper {
     }, 1000);
   }
 
+  insertT() {
+    const { index } = this.quill.getSelection(true);
+    console.info('🚀 ~ file:quill-helper method:focus line:118 -----', index);
+    this.quill.insertText(index, 'hello', Quill.sources.SILENT);
+    // this.quill.insertEmbed(index, BlotName.NGR_SPACE, {}, Quill.sources.SILENT);
+    this.setSelectionWithoutFocus(index + 1);
+  }
+
+  insertS() {
+    const { index } = this.quill.getSelection(true);
+    this.quill.insertEmbed(index, BlotName.ngr_space, {}, Quill.sources.SILENT);
+    this.setSelectionWithoutFocus(index + 1);
+  }
+
   focus() {
     const { index } = this.quill.getSelection(true);
     // if (index === 0) {
@@ -110,35 +126,34 @@ export class QuillHelper {
     //   index = index + 1;
     // }
     console.info('🚀 ~ file:quill-helper method:focus line:118 -----', index);
-    this.quill.insertEmbed(index, BlotName.NGR_SPACE, {}, Quill.sources.SILENT);
+    // this.quill.insertEmbed(index, BlotName.NGR_SPACE, {}, Quill.sources.SILENT);
     this.setSelectionWithoutFocus(index + 1);
   }
+
   insertSpace(index) {
-    this.quill.insertEmbed(index, BlotName.NGR_SPACE, {}, Quill.sources.SILENT);
-    this.quill.setSelection(index + 1, Quill.sources.SILENT); // 将光标移动到空格后
+    this.quill.insertEmbed(index, BlotName.ngr_space, {}, Quill.sources.SILENT);
   }
+
   insertTopic2({ topicId, topicName }) {
     if (!topicName) return;
     const { index } = this.quill.getSelection(true);
+    this.insertSpace(index);
+    const topicIndex = index + 1;
+    this.quill.setSelection(topicIndex, Quill.sources.SILENT); // 将光标移动到空格后
     this.quill?.insertEmbed(
-      index,
-      BlotName.NGR_TOPIC2,
+      topicIndex,
+      BlotName.ngr_topic2,
       {
         topicName,
         topicId,
       },
-      Quill.sources.USER
+      Quill.sources.SILENT
     );
     const topicNameLength = topicName?.length || 0;
-    const next = index + topicNameLength + 3; // 2: #号占一个
+    const next = topicIndex + topicNameLength + 1; //  #号占一个
     // this.quill.insertText(next + 1, 'hello', Quill.sources.USER);
+    // this.quill.setSelection(next + 1, Quill.sources.SILENT); // 将光标移动到空格后
+    this.insertSpace(next);
     this.quill.setSelection(next + 1, Quill.sources.SILENT); // 将光标移动到空格后
-    setTimeout(() => {
-      this.quill.focus();
-    }, 1000);
-    // setTimeout(() => {
-    //   const { index: index_ } = this.quill.getSelection(true);
-    //   console.info('🚀 ~ file:quill-helper method:insertTopic2 line:73 -----', index_);
-    // }, 1000);
   }
 }
