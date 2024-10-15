@@ -3,8 +3,8 @@ import Quill from 'quill';
 import { BlotName } from './blot';
 
 export class QuillHelper {
-   quill: Quill;
-  constructor(quil: Quill) {
+  quill;
+  constructor(quil) {
     this.quill = quil;
   }
 
@@ -41,8 +41,7 @@ export class QuillHelper {
   /**
    * 不会触发focus的 setSelection
    */
-  setSelectionWithoutFocus(index: number, length?: number) {
-    // @ts-ignore
+  setSelectionWithoutFocus(index, length) {
     this.quill.oldRange = {
       index,
       length: length || 0,
@@ -73,7 +72,10 @@ export class QuillHelper {
     this.quill.focus();
     // const index = this.getInsertIndex();
     const { index } = this.quill.getSelection(true);
-    console.info('🚀 ~ file:quill-helper method:insertTopic line:73 -----', index);
+    console.info(
+      '🚀 ~ file:quill-helper method:insertTopic line:73 -----',
+      index
+    );
     // this.quill.insertText(index, '');
     // const insertTopicIndex = index + 1;
     this.quill?.insertEmbed(
@@ -83,7 +85,7 @@ export class QuillHelper {
         topicName: topic.topicName,
         topicId: topic.topicId,
       },
-      Quill.sources.USER,
+      Quill.sources.USER
     );
     const topicNameLength = topic.topicName?.length || 0;
     const next = index + topicNameLength + 3; // 2: #号占一个
@@ -94,7 +96,10 @@ export class QuillHelper {
     this.quill.focus();
     setTimeout(() => {
       const { index: index_ } = this.quill.getSelection(true);
-      console.info('🚀 ~ file:quill-helper method:insertTopic2 line:73 -----', index_);
+      console.info(
+        '🚀 ~ file:quill-helper method:insertTopic2 line:73 -----',
+        index_
+      );
     }, 1000);
   }
 
@@ -108,11 +113,11 @@ export class QuillHelper {
     this.quill.insertEmbed(index, BlotName.NGR_SPACE, {}, Quill.sources.SILENT);
     this.setSelectionWithoutFocus(index + 1);
   }
-  insertSpace(index: number) {
+  insertSpace(index) {
     this.quill.insertEmbed(index, BlotName.NGR_SPACE, {}, Quill.sources.SILENT);
     this.quill.setSelection(index + 1, Quill.sources.SILENT); // 将光标移动到空格后
   }
-  insertTopic2({ topicId, topicName }): void {
+  insertTopic2({ topicId, topicName }) {
     if (!topicName) return;
     const { index } = this.quill.getSelection(true);
     this.quill?.insertEmbed(
@@ -122,7 +127,7 @@ export class QuillHelper {
         topicName,
         topicId,
       },
-      Quill.sources.USER,
+      Quill.sources.USER
     );
     const topicNameLength = topicName?.length || 0;
     const next = index + topicNameLength + 3; // 2: #号占一个
