@@ -7,7 +7,7 @@ import './style.scss';
 import styles from './style.module.scss';
 import { BlotName } from './blot';
 
-export const QEditorInner = () => {
+export default function QEditorInner() {
   const editorContainerRef = useRef(null);
   const quillHelperRef = useRef(null);
   useEffect(() => {
@@ -28,10 +28,22 @@ export const QEditorInner = () => {
     }
   }, []);
 
+  const qe = quillHelperRef.current;
+
   return (
     <>
       <div className={classNames(styles.toolsContainer)}>
-        <button type="button">插入话题</button>
+        <button
+          type="button"
+          onClick={() => {
+            qe.insertTopic2({
+              topicName: '测试',
+              topicId: 123,
+            });
+          }}
+        >
+          插入话题
+        </button>
         <button type="button">插入空格</button>
         <button type="button">打印</button>
       </div>
@@ -44,7 +56,7 @@ export const QEditorInner = () => {
         onFocus={() => {
           console.info('🚀 ~ file:index method: line:24 -----');
         }}
-      ></div>
+      />
     </>
   );
-};
+}
