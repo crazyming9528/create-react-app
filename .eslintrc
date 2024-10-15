@@ -2,6 +2,8 @@
   "extends": ["airbnb", "airbnb/hooks", "prettier"],
   "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": "error"
-  }
+    "linebreak-style": ["error", "unix"],
+    "prettier/prettier": "error",
+  },
 }
+  
