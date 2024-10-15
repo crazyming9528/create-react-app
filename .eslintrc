@@ -4,6 +4,8 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off",
+    "namedComponents": "arrow", // 对于命名组件使用箭头函数
+    "unnamedComponents": "arrow", // 对于未命名组件使用箭头函数
   },
 }
-  

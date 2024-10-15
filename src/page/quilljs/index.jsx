@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import styles from './style.module.scss';
 import classNames from 'classnames';
 import { QEditorInner } from '../../components/q-editor-inner';
 
-export const QuilljsPage = () => {
+import styles from './style.module.scss';
+
+const QuilljsPage = () => {
   const [hello, setHello] = useState('Hello World');
 
   useEffect(() => {
@@ -14,8 +15,9 @@ export const QuilljsPage = () => {
 
   return (
     <div className={classNames(styles.pageWrapper)}>
-      {hello}
+      <div className={classNames(styles.title)}> {hello}</div>
       <QEditorInner />
     </div>
   );
 };
+export default QuilljsPage;
